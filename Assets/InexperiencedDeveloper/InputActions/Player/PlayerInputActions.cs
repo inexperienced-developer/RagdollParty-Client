@@ -53,6 +53,24 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LeftHand"",
+                    ""type"": ""Value"",
+                    ""id"": ""9872df55-7184-45bb-b2d4-dc41f4908a6f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""RightHand"",
+                    ""type"": ""Value"",
+                    ""id"": ""23341010-be2b-42f4-b9fa-a2b92e13b02e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -163,6 +181,50 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""40ba9d0b-2cf0-48e4-81ea-0751fb84deda"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""LeftHand"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ee965952-3e07-4886-9385-74cfaaeb77e1"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""LeftHand"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8a5eff92-0095-4180-a51f-24667d2bc4f3"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""RightHand"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f6a56c78-61e7-4581-ad54-211fa407e7d4"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""RightHand"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -453,6 +515,8 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+        m_Player_LeftHand = m_Player.FindAction("LeftHand", throwIfNotFound: true);
+        m_Player_RightHand = m_Player.FindAction("RightHand", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -523,6 +587,8 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Jump;
+    private readonly InputAction m_Player_LeftHand;
+    private readonly InputAction m_Player_RightHand;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -530,6 +596,8 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
+        public InputAction @LeftHand => m_Wrapper.m_Player_LeftHand;
+        public InputAction @RightHand => m_Wrapper.m_Player_RightHand;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -548,6 +616,12 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @LeftHand.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftHand;
+                @LeftHand.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftHand;
+                @LeftHand.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftHand;
+                @RightHand.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRightHand;
+                @RightHand.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRightHand;
+                @RightHand.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRightHand;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -561,6 +635,12 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @LeftHand.started += instance.OnLeftHand;
+                @LeftHand.performed += instance.OnLeftHand;
+                @LeftHand.canceled += instance.OnLeftHand;
+                @RightHand.started += instance.OnRightHand;
+                @RightHand.performed += instance.OnRightHand;
+                @RightHand.canceled += instance.OnRightHand;
             }
         }
     }
@@ -661,6 +741,8 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnLeftHand(InputAction.CallbackContext context);
+        void OnRightHand(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

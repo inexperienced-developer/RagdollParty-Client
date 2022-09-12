@@ -87,6 +87,7 @@ namespace InexperiencedDeveloper.Multiplayer.Riptide.ClientDev
             GroundManager groundManager = netPlayer.gameObject.AddComponent<GroundManager>();
             PlayerControls controls = netPlayer.gameObject.AddComponent<PlayerControls>();
             RagdollMovement movement = netPlayer.gameObject.AddComponent<RagdollMovement>();
+            Ball ball = netPlayer.gameObject.AddComponent<Ball>();
             player.Init();
             return player;
         }

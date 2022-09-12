@@ -141,7 +141,7 @@ namespace InexperiencedDeveloper.ActiveRagdoll
             //Add adjustments for Menu Cameras
             Quaternion lookRot = Quaternion.Euler(pitch, yaw, 0f);
             Vector3 camForward = lookRot * Vector3.forward;
-            Vector3 targetPos = ((!flag) ? SmoothCamera(ragdoll.Head.transform.position, Time.unscaledDeltaTime) : fixedUpdateSmooth) + targetOffset;
+            Vector3 targetPos = ((!flag) ? SmoothCamera(ragdoll.Head.Transform.position, Time.unscaledDeltaTime) : fixedUpdateSmooth) + targetOffset;
             nearClip *= Mathf.Clamp(GameCam.transform.position.magnitude / 500f, 1f, 2f);
             GameCam.nearClipPlane = nearClip;
             GameCam.fieldOfView = fov;

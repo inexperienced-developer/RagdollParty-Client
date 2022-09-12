@@ -16,13 +16,17 @@ namespace InexperiencedDeveloper.Core.Controls
         public float CameraYawAngle { get; private set; }
         public float TargetPitchAngle { get; private set; }
         public float TargetYawAngle { get; private set; }
+        public float LeftExtend { get; private set; }
+        public float RightExtend { get; private set; }
+        public bool LeftGrab { get; private set; }
+        public bool RightGrab { get; private set; }
         public bool Jump { get; private set; }
 
         public Vector3 WalkDir { get; private set; }
         public float WalkSpeed { get; private set; }
         private Vector3 walkLocalDir;
         private Vector3 lastWalkDir;
-        private float unsmoothedWalkSpeed;
+        public float UnsmoothedWalkSpeed;
 
         private List<float> mouseInputsX = new List<float>();
         private List<float> mouseInputsY = new List<float>();
@@ -69,6 +73,8 @@ namespace InexperiencedDeveloper.Core.Controls
             CameraPitchAngle = Mathf.Clamp(CameraPitchAngle, -80f, 80f);
             Look = CalcKeyLook;
             Jump = GetJump;
+            LeftExtend = GetLeftExtend();
+            RightExtend = GetRightExtend();
         }
 
         private void HandleInput()
@@ -78,7 +84,7 @@ namespace InexperiencedDeveloper.Core.Controls
             TargetYawAngle = CameraYawAngle;
             Quaternion rot = Quaternion.Euler(0, CameraYawAngle, 0);
             Vector3 dir = rot * walkLocalDir;
-            unsmoothedWalkSpeed = dir.magnitude;
+            UnsmoothedWalkSpeed = dir.magnitude;
             dir = new Vector3(FilterAxisAcceleration(lastWalkDir.x, dir.x), 0f, FilterAxisAcceleration(lastWalkDir.z, dir.z));
             WalkSpeed = dir.magnitude;
             if(WalkSpeed > 0f)
@@ -86,6 +92,8 @@ namespace InexperiencedDeveloper.Core.Controls
                 WalkDir = dir;
             }
             lastWalkDir = dir;
+            LeftGrab = LeftExtend > 0;
+            RightGrab = RightExtend > 0;
         }
 
         private float FilterAxisAcceleration(float currVal, float desiredVal)
@@ -114,6 +122,8 @@ namespace InexperiencedDeveloper.Core.Controls
 
         public Vector2 CalcKeyLook => PlayerActions.Player.Look.ReadValue<Vector2>();
         public bool GetJump => PlayerActions.Player.Jump.IsPressed();
+        public float GetLeftExtend() => PlayerActions.Player.LeftHand.ReadValue<float>();
+        public float GetRightExtend() => PlayerActions.Player.RightHand.ReadValue<float>();
 
     }
 }

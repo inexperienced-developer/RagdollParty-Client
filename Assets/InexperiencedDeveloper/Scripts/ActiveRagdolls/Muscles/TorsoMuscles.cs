@@ -61,7 +61,8 @@ namespace InexperiencedDeveloper.ActiveRagdoll
 
         private Vector3 JumpAnimation()
         {
-            return ApplyTorsoPose(1f, 1f, 0f, 1f);
+            float lift = 1f;
+            return ApplyTorsoPose(1f, 1f, 0f, lift);
         }
 
         private Vector3 ApplyTorsoPose(float torsoRigidity, float headRigidity, float torsoBend, float lift)
