@@ -68,8 +68,8 @@ namespace InexperiencedDeveloper.ActiveRagdoll
             RightThigh = FindSegment(dict, "thigh.r");
             RightLeg = FindSegment(dict, "leg.r");
             RightFoot = FindSegment(dict, "foot.r");
-            DebugLogger.Log($"Found {BodyPartsFound} body parts");
-            DebugLogger.LogWarning($"TODO: Collision set up for body parts");
+           // DebugLogger.Log($"Found {BodyPartsFound} body parts");
+           // DebugLogger.LogWarning($"TODO: Collision set up for body parts");
             SetupHeadComponents(Head);
             SetupBodyComponents(Chest);
             SetupBodyComponents(Waist);

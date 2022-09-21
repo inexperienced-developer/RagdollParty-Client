@@ -14,7 +14,7 @@ namespace InexperiencedDeveloper.ActiveRagdoll
         Ball
     }
 
-    public class ArmMuscles
+    public class ArmMuscles 
     {
         private Player player;
         private Ragdoll ragdoll;

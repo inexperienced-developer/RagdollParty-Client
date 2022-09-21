@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace InexperiencedDeveloper.ActiveRagdoll
 {
-    public class TorsoMuscles
+    public class TorsoMuscles 
     {
         private readonly Player player;
         private readonly Ragdoll ragdoll;

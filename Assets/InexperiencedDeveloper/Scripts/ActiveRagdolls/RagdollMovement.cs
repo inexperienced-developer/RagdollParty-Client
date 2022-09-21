@@ -17,7 +17,7 @@ namespace InexperiencedDeveloper.ActiveRagdoll
         {
             if (Player != null) return;
             Player = GetComponent<Player>();
-            Ragdoll = Player.Ragdoll;
+            Ragdoll = GetComponentInChildren<Ragdoll>();
             Torso = new TorsoMuscles(Player, Ragdoll, this);
             Legs = new LegMuscles(Player, Ragdoll, this);
             Arms = new ArmMuscles(Player, Ragdoll, this);

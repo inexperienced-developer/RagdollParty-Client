@@ -49,10 +49,10 @@ namespace InexperiencedDeveloper.Core.Controls
 
         private void Update()
         {
-            if (Player.NetPlayer.IsLocal)
-            {
-                ReadInput();
-            }
+            //if (Player.NetPlayer.IsLocal)
+            //{
+            //}
+            ReadInput();
             HandleInput();
         }
 
