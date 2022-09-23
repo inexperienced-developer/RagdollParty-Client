@@ -45,7 +45,7 @@ namespace InexperiencedDeveloper.ActiveRagdoll
             HandLength = (LeftArm.Transform.position - LeftForearm.Transform.position).magnitude + (LeftForearm.Transform.position - LeftHand.Transform.position).magnitude;
         }
 
-        private void GetSegments()
+        public void GetSegments()
         {
             Dictionary<string, Transform> dict = new();
             Transform[] transforms = GetComponentsInChildren<Transform>();
@@ -128,7 +128,7 @@ namespace InexperiencedDeveloper.ActiveRagdoll
             return InitializeSegment(children[name.ToLower()]);
         }
 
-        private BodySegment InitializeSegment(Transform t)
+        public BodySegment InitializeSegment(Transform t)
         {
             BodySegment segment = new();
             segment.Transform = t;

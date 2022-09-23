@@ -2,21 +2,31 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InexperiencedDeveloper.Extensions;
 
-public class LaunchPad : MonoBehaviour
+namespace InexperiencedDeveloper.ActiveRagdoll
 {
-
-    [SerializeField] private float liftForce = 10f;
-
-    private void OnTriggerEnter(Collider other)
+    public class LaunchPad : MonoBehaviour
     {
+
+        [SerializeField] private float liftForce = 10f;
+
+
+        private void OnTriggerEnter(Collider other)
+        {
             Debug.Log("NYOOM");
-            Launch(other);
-    }
+            if (other.tag == "Player")
+            {
+                Launch(other);
+            }
 
-    private void Launch(Collider collider)
-    {
-        collider.GetComponent<Rigidbody>().AddForce(transform.up * liftForce, ForceMode.Impulse);
+        }
+
+        private void Launch(Collider collider)
+        {
+            collider.GetComponent<Rigidbody>().SafeAddForce(transform.up * liftForce, ForceMode.Impulse);
+        }
+
     }
 
 }
