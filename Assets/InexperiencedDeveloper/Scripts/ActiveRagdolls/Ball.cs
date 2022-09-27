@@ -25,33 +25,33 @@ public class Ball : MonoBehaviour
         grabManager = GetComponent<GrabManager>();
     }
 
-    private void FixedUpdate()
-    {
-        collisions.Clear();
-        contacts.Clear();
-    }
+    //private void FixedUpdate()
+    //{
+    //    collisions.Clear();
+    //    contacts.Clear();
+    //}
 
-    public void OnCollisionEnter(Collision collision)
-    {
-        if (collision.contacts.Length == 0)
-            return;
-        HandleCollision(collision);
-        collisions.Add(collision);
-        for(int i = 0; i < collision.contacts.Length; i++)
-        {
-            contacts.Add(collision.contacts[i].point);
-        }
-    }
+    //public void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.contacts.Length == 0)
+    //        return;
+    //    HandleCollision(collision);
+    //    collisions.Add(collision);
+    //    for(int i = 0; i < collision.contacts.Length; i++)
+    //    {
+    //        contacts.Add(collision.contacts[i].point);
+    //    }
+    //}
 
-    public void OnCollisionStay(Collision collision)
-    {
-        if (collision.contacts.Length == 0)
-            return;
-        HandleCollision(collision);
-        collisions.Add(collision);
-        for (int i = 0; i < collision.contacts.Length; i++)
-            contacts.Add(collision.contacts[i].point);
-    }
+    //public void OnCollisionStay(Collision collision)
+    //{
+    //    if (collision.contacts.Length == 0)
+    //        return;
+    //    HandleCollision(collision);
+    //    collisions.Add(collision);
+    //    for (int i = 0; i < collision.contacts.Length; i++)
+    //        contacts.Add(collision.contacts[i].point);
+    //}
 
     private void HandleCollision(Collision collision)
     {

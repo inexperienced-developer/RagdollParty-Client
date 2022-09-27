@@ -3,54 +3,58 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ImmobilizingTrap : MonoBehaviour
+public class ImmobilizingTrap : Trap
 {
 
-    private bool hasEscaped = true;
-    private new Collider collider;
+    private bool padActive = true;
+    private List<Collider> immobilizedColliders = new List<Collider>();
     [SerializeField] private int escapeTime = 3;
+    [SerializeField] private LayerMask characterLayer;
 
 
     private void OnTriggerEnter(Collider collider)
     {
 
-        Debug.Log("TRAPPED");
-        if (collider.tag == "Player" && hasEscaped == true)
+        if (collider.GetComponent<Ball>()) return;
+
+        if (collider.gameObject.layer == 6)
         {
-            hasEscaped = false;
-            this.collider = collider;
-            RestrictMovement();
+            
+            Ball[] parent = collider.GetComponentsInParent<Ball>();
+            Debug.Log(parent.Length);
+
+            if (parent.Length > 0)
+            {
+                Debug.Log("TRAPPED");
+                padActive = false;
+                Activate(parent[0].GetComponent<Rigidbody>());
+                immobilizedColliders.Add(parent[0].GetComponent<SphereCollider>());
+            }
+
         }
 
     }
 
-    private void RestrictMovement()
-    {
-
-        collider.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-
-    }
 
     private void Update()
     {
 
-        EscapeMethod(collider);
+        EscapeMethod();
 
     }
 
-    private void EscapeMethod(Collider collider)
+    private void EscapeMethod()
     {
 
-        if (collider == null)
-        {
-            Debug.Log("Something wrong with collider here...");
-            return;
-        }
-
-        if (hasEscaped == false && Input.GetKeyUp(KeyCode.P))
+        if (padActive == false && Input.GetKeyUp(KeyCode.P))
         {
             Debug.Log("YOU ARE FREE!");
-            collider.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            foreach (Collider c in immobilizedColliders)
+            {
+                c.GetComponent<Rigidbody>().isKinematic = false;
+            }
+
+            
             StartCoroutine(EscapeTimer(escapeTime));
         }
        
@@ -59,7 +63,14 @@ public class ImmobilizingTrap : MonoBehaviour
     private IEnumerator EscapeTimer(int escapeTime)
     {
         yield return new WaitForSeconds(escapeTime);
-        hasEscaped = true;
+        padActive = true;
     }
 
+    public override void Activate(Rigidbody rb)
+    {
+        rb.isKinematic = true;
+        Vector3 newPos = transform.position;
+        newPos.y += 0.5f;
+        rb.transform.position = newPos;
+    }
 }

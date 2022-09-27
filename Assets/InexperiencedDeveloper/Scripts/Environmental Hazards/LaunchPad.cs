@@ -6,7 +6,7 @@ using InexperiencedDeveloper.Extensions;
 
 namespace InexperiencedDeveloper.ActiveRagdoll
 {
-    public class LaunchPad : MonoBehaviour
+    public class LaunchPad : Trap
     {
 
         [SerializeField] private float liftForce = 10f;
@@ -27,6 +27,10 @@ namespace InexperiencedDeveloper.ActiveRagdoll
             collider.GetComponent<Rigidbody>().SafeAddForce(transform.up * liftForce, ForceMode.Impulse);
         }
 
+        public override void Activate(Rigidbody Rb)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }
