@@ -79,9 +79,17 @@ namespace InexperiencedDeveloper.ActiveRagdoll
             Interpolate = GetComponent<Interpolate>();
             Ragdoll.BindBall(transform);
             Movement.Init();
+            InitializeCamera();
             Speed = 400;
             //REMOVEME
             InitBodies();
+        }
+
+        private void InitializeCamera()
+        {
+
+            Camera.main.gameObject.GetComponent<CameraController>().Init(this);
+
         }
 
         private void InitBodies()

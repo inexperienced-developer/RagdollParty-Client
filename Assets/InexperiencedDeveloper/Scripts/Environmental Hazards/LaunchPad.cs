@@ -1,36 +1,70 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using InexperiencedDeveloper.Extensions;
+//using System;
+//using System.Collections;
+//using System.Collections.Generic;
+//using UnityEngine;
+//using InexperiencedDeveloper.Extensions;
 
-namespace InexperiencedDeveloper.ActiveRagdoll
-{
-    public class LaunchPad : Trap
-    {
+//namespace InexperiencedDeveloper.ActiveRagdoll
+//{
+//    public class LaunchPad : Trap
+//    {
 
-        [SerializeField] private float liftForce = 10f;
+//        private float liftForce;
+//        [SerializeField] private GameObject Player;
+//        private float accelTime;
+//        [SerializeField] private float lerpDuration;
+//        [SerializeField] private float startValue;
+//        [SerializeField] private float endValue;
+//        private bool padActivated = false;
+        
 
 
-        private void OnTriggerEnter(Collider other)
-        {
-            Debug.Log("NYOOM");
-            if (other.tag == "Player")
-            {
-                Launch(other);
-            }
+//        private void OnTriggerEnter(Collider other)
+//        {
+//            accelTime = 0f;
+//            liftForce = 0f;
+//            padActivated = true;
 
-        }
+//            if (other.tag == "Player")
+//            {
+//                Debug.Log("NYOOM");
+//                StartCoroutine(Launch(other));
+//            }
 
-        private void Launch(Collider collider)
-        {
-            collider.GetComponent<Rigidbody>().SafeAddForce(transform.up * liftForce, ForceMode.Impulse);
-        }
+//        }
 
-        public override void Activate(Rigidbody Rb)
-        {
-            throw new NotImplementedException();
-        }
-    }
+//        private float CalculateAccleration()
+//        {
 
-}
+//            if (padActivated)
+//            {
+//                liftForce = Mathf.Lerp(startValue, endValue, accelTime / lerpDuration);
+//                accelTime += Time.deltaTime;
+//                return liftForce;
+//            }
+
+//            padActivated = false;
+//        }
+
+//        private IEnumerator Launch(Collider collider)
+//        {
+//            //collider.GetComponent<Rigidbody>().AddForce(transform.up * liftForce, ForceMode.Acceleration);
+
+//            yield return new WaitForSeconds(lerpDuration);
+//            Rigidbody[] bodies = collider.gameObject.GetComponentsInChildren<Rigidbody>();
+//            foreach (Rigidbody bodypart in bodies)
+//            {
+
+//                bodypart.AddForce(transform.up * CalculateAccleration(), ForceMode.Acceleration);
+
+//            }
+
+//        }
+
+//        public override void Activate(Rigidbody Rb)
+//        {
+//            throw new NotImplementedException();
+//        }
+//    }
+
+//}

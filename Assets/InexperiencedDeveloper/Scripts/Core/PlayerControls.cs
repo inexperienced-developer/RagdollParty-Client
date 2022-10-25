@@ -3,6 +3,7 @@ using InexperiencedDeveloper.Utils.Log;
 using InexperiencedDeveloper.ActiveRagdoll;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace InexperiencedDeveloper.Core.Controls
 {
@@ -21,6 +22,7 @@ namespace InexperiencedDeveloper.Core.Controls
         public bool LeftGrab { get; private set; }
         public bool RightGrab { get; private set; }
         public bool Jump { get; private set; }
+        public Vector2 mousePosition { get; private set; }
 
         public Vector3 WalkDir { get; private set; }
         public float WalkSpeed { get; private set; }
@@ -75,6 +77,7 @@ namespace InexperiencedDeveloper.Core.Controls
             Jump = GetJump;
             LeftExtend = GetLeftExtend();
             RightExtend = GetRightExtend();
+            mousePosition = PlayerActions.Player.MousePosition.ReadValue<Vector2>();
         }
 
         private void HandleInput()
